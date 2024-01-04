@@ -1,0 +1,6 @@
+---
+layout: post
+title: "MAYA-顶点色储存法线"
+categories: [MAYA    系列]
+tags: MAYA VertexColor VertexNormal
+---

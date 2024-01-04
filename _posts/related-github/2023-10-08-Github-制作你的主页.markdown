@@ -1,0 +1,202 @@
+---
+layout: post
+title: "Github-制作你的主页"
+categories: [Git 系列]
+tags: Github
+---
+
+<div style="text-align:center; font-size: 24px; color: #006400;">
+
+Github 预览
+
+<br>
+<img src="/image/image-202310080001.gif" alt="image-页面" width="450" height="600">
+
+</div>
+
+## 解决流程步骤：
+
+### 1.【建立工程】
+
+<div style="text-align:center">
+<img src="/image/image-202310080002.jpg" alt="image-页面" width="300" height="300">
+</div>
+<br>
+<span style="color:red">注意：这里的工程名一定要跟你的 Github 上设置的名字要一样，否则页面读取不了。</span>
+
+### 2.【编辑 README.md】
+
+- 对页面的布局需要了解下 MD 的语法，有些需要 HTML 语法去编辑着取决你的页面需要用到什么样的模板格式和写法。
+
+    - 在 Github 上预览
+    <img src="/image/image-202310080003.jpg" alt="image-页面" width="300" height="210">
+
+    - 在 VSCODE 上预览
+    <img src="/image/image-202310080004.jpg" alt="image-页面" width="280" height="210">
+
+### 3.【刷新你的 Profile】
+
+- 当你编辑好你的 README.md 直接推送到你的工程中，刷新下 profile 就可以看到你的主页面已经更换成了你的 README.md 内容了。
+
+## 二。怎么写你的主页：
+
+### 1.【生成模板】
+
+- 定制你的模板结构[GitHub Profile README Generator](https://rahuldkjain.github.io/gh-profile-readme-generator/)
+
+- 进入网页后选择你的专属主页结构
+
+<div style="text-align:center">
+  <img src="/image/image-202310080006.jpg" alt="image-页面" width="225" height="150">
+</div>
+- 确定好你的结构后点击生成
+<div style="text-align:center">
+  <img src="/image/image-202310080005.jpg" alt="image-页面" width="200" height="80">
+</div>
+- 拷贝生成的 README.md 内容然后到你的 README.md 中编辑！
+<div style="text-align:center">
+  <img src="/image/image-202310080007.jpg" alt="image-页面" width="400" height="150">
+</div>
+
+### 2.【扩展模板】
+
+- [anuraghazra/](https://github.com/anuraghazra/github-readme-stats)—选择你的数据展示模板套用到你的页面中
+
+<div style="text-align:center">
+  <img src="/image/image-202310080008.jpg" alt="image-页面" width="300" height="200">
+</div>
+- 在你的 README.md 文件中，你可以添加以下代码来显示你的 GitHub 统计信息：
+
+```
+![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=YOUR_GITHUB_USERNAME)
+```
+
+<span style="color:red">注意：将 YOUR_GITHUB_USERNAME 替换为你的 GitHub 用户名。。</span>
+
+- 还有多种样式，配置，只是我没有去深入，暂时用一些简单的详细的话可以看[官网](https://github.com/anuraghazra/github-readme-stats)
+
+### 3.【制作 Gif】
+
+- 如果你有特殊需要像我的 Gif 一样多个 gif 拼接到一块需要用到 Photoshop
+- ![image](/image/github-header-image.gif)
+- 在 PS 中制作 GIF 很简单，需要你从[giphy](https://giphy.com/)中下载需要的素材然后在 PS 中去拼接，如果遇到播放有问题，需要对应点下列的动画帧然后把对应图层编号跟帧对应上就能播放了。就如我下面这样：
+- ![image](/image/github-header-imagePS.gif)
+- 这里需要说下如果你拼接自己的 GIF 这时候会遇到问题，就是导出的 GIF 压缩后也是有几十 M，比较大，这时候需要用到我下面提到的三个工具去对应压缩[gifcompressor](https://gifcompressor.com/zh/)；[iloveimg](https://www.iloveimg.com/compress-image/compress-gif)；[mnggiflab](https://www.mnggiflab.com/product/video-to-gif)；可以结合着来使用！其中我用的[iloveimg](https://www.iloveimg.com/compress-image/compress-gif)结合着[mnggiflab](https://www.mnggiflab.com/product/video-to-gif)可以把 45M 的 GIF 压缩成 4M 多，这两个插件结合让我很惊讶！
+- 好了，到这里大致说完整个流程，以下是我用来制作主页找的资源插件跟 ICO 图标还有压缩工具和教程。
+
+## 三。参考资源：
+
+### >【GitHub 教程】
+
+- [Your GitHub Profile](https://www.youtube.com/watch?v=HD4cnRuSGN0)—主页面基础教程
+
+### >【GitHub 页面图标】
+
+- [worldvectorlogo](https://worldvectorlogo.com/)—图标系列 01
+- [svgrepo](https://www.svgrepo.com/)—图标系列 02
+- [igoutu](https://igoutu.cn/icons/)—图标系列 02
+
+### >【GitHub 页面动图】
+
+- [giphy](https://giphy.com/)—图标系列 02
+
+### >【GitHub GIF 压缩器】
+
+- [gifcompressor](https://gifcompressor.com/zh/)—压缩器系列 01
+- [iloveimg](https://www.iloveimg.com/compress-image/compress-gif)—压缩器系列 02
+- [mnggiflab](https://www.mnggiflab.com/product/video-to-gif)—压缩器系列 03
+
+### >【GitHub 插件库】
+
+- [anuraghazra](https://github.com/anuraghazra/github-readme-stats)—这个项目允许你动态地生成 GitHub 统计信息并添加到你的 README 中。它提供了多种风格和自定义选项。
+- [DenverCoder1](https://github.com/rahuldkjain/github-profile-readme-generator)—可以帮助你轻松生成 GitHub 个人资料的。README。它提供了一个用户友好的界面，让你可以选择和自定义你想在 README 中展示的内容。也是我用来生成主页模板插件。可以直接进入[DenverCoder 网页](https://rahuldkjain.github.io/gh-profile-readme-generator/)去生成，就不用再去 Github 点进去了。
+
+## 四。README 代码参考：
+
+```
+<p align="center">
+  <img src="header/github-header-image.gif" alt="logo">
+</p>
+
+<h1 align="center"></h1>
+
+<div align="center" style="margin: 20px 0;">
+    <ul style="list-style-type: none;">
+        <li>
+           <img alt="coding" width="300" src="ico-gif/ico_01.gif">
+        </li>
+    </ul>
+</div>
+
+<!-- 我的博客跟邮箱 -->
+<div align="center" style="margin: 20px 0;">
+    <h3>My Blog:</h3>
+    <ul style="list-style-type: none;">
+        <li>
+            <img src="ico/Blog.svg" alt="Blog Icon" style="width: 24px; margin-right: 10px;"> <!-- 使用<img>标签引用本地图标 -->
+            I regularly write articles on <a href="https://blog.roanyiu.com">blog.roanyiu.com</a>
+        </li>
+    </ul>
+</div>
+
+<div align="center" style="margin: 20px 0;">
+    <h3>My Mail:</h3>
+    <ul style="list-style-type: none;">
+        <li>
+            <img src="ico/mail.svg" alt="Mail Icon" style="width: 24px; margin-right: 10px;"> <!-- 使用<img>标签引用本地图标 -->
+            How to reach me: <a href="mailto:yqr415596862@gmail.com">yqr415596862@gmail.com</a>
+        </li>
+    </ul>
+</div>
+<!-- <br> -->
+<p align="center">
+  <a href="https://git.io/streak-stats">
+    <img src="https://streak-stats.demolab.com?user=RoanYiu&theme=shadow-green&hide_border=&locale=zh_Hans&date_format=M%20j%5B%2C%20Y%5D" alt="GitHub Streak">
+  </a>
+</p>
+<!-- GitHub 统计数据 -->
+
+<div align="center">
+
+![Roanyiu's GitHub stats](https://github-readme-stats.vercel.app/api?username=Roanyiu&show_icons=true&bg_color=0d1117&title_color=2f8c3d&text_color=2f8c3d&icon_color=2f8c3d&border_color=2f8c3d&locale=cn)
+
+</div>
+<!-- 工具 -->
+<h3 align="center">Languages and Tools:</h3>
+<div style="text-align: center;">
+    <!-- 语言方面 -->
+    <a href="https://learn.microsoft.com/zh-cn/dotnet/csharp/" target="_blank" rel="noreferrer">
+        <img src="ico/c.svg" alt="c#" width="40" height="40"/>
+    </a>
+    <a href="https://www.autodesk.com.cn/products/maya/overview" target="_blank" rel="noreferrer">
+        <img src="ico/Python.svg" alt="Python" width="40" height="40"/>
+    </a>
+    <!-- 三维软件 -->
+    <a href="https://www.python.org/" target="_blank" rel="noreferrer">
+        <img src="ico/maya.svg" alt="maya" width="40" height="40"/>
+    </a>
+    <a href="https://www.autodesk.com/products/3ds-max/overview?term=1-YEAR&tab=subscription" target="_blank" rel="noreferrer">
+        <img src="ico/3ds-max.svg" alt="3ds-max" width="40" height="40"/>
+    </a>
+    <a href="https://www.adobe.com/cn/products/photoshop.html" target="_blank" rel="noreferrer">
+        <img src="ico/photoshop-cc.svg" alt="photoshop" width="40" height="40"/>
+    </a>
+    <a href="https://www.adobe.com/products/substance3d-painter.html" target="_blank" rel="noreferrer">
+        <img src="ico/substance-painter.svg" alt="substance-painter" width="40" height="40"/>
+    </a>
+    <a href="https://www.adobe.com/products/substance3d-designer.html" target="_blank" rel="noreferrer">
+        <img src="ico/substance-designer.svg" alt="substance-designer" width="40" height="40"/>
+    </a>
+    <a href="https://www.sidefx.com/" target="_blank" rel="noreferrer">
+        <img src="ico/houdini.svg" alt="houdini" width="40" height="40"/>
+    </a>
+    <!-- 游戏引擎 -->
+    <a href="https://unity.cn/" target="_blank" rel="noreferrer">
+        <img src="ico/unity.svg" alt="unity" width="40" height="40"/>
+    </a>
+    <a href="https://www.unrealengine.com/" target="_blank" rel="noreferrer">
+        <img src="ico/unreal-engine.svg" alt="photoshop" width="40" height="40"/>
+    </a>
+</div>
+
+```

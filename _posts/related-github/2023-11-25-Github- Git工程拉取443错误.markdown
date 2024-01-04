@@ -1,0 +1,114 @@
+---
+layout: post
+title: "Github-Git工程拉取443错误"
+categories: [Git 系列]
+tags: Github Git-443错误
+---
+Github 443错误问题
+
+## 一。流程步骤：
+### 1.【Sourcetree拉取问题】
+
+```
+git -c diff.mnemonicprefix=false -c core.quotepath=false --no-optional-locks fetch --no-tags origin
+fatal: unable to access 'https://github.com/RoanYiu/Git_Resource.git/': Failed to connect to github.com port 443 after 21048 ms: Couldn't connect to server
+完成时带有错误，见上文。
+```
+
+这是服务器验证导致失败，对于Https的方式，需要验证服务器，但是服务器验证失败就导致工程无法拉取。
+而Desktop的方式，因为是特殊的配置所以在HTTPS方式下也可以拉取不会像Sourcetree那样不稳定，所以在Sourcetree中使用SSH的方式就可以解决这个问题。
+
+### 2.【Sourcetree-Http工程切换SSH工程配置】
+
+#### A.这是Sourcetree工程将HTTP切换成SSH的方式，选择你的工程-设置选项中，将工程的地址进行切换：
+![Sourcetree切换SSH](/image/image-2023-11-25-01.png)
+
+#### B.在Sourcetree中添加SSH的方式：
+![Sourcetree切换SSH](/image/image-2023-11-25-02.png)
+
+* 首先不再使用旧的SSL助手而是直接在选项中-一般设置-中将SSH客户端从Putty切换成OpenSSH，接着在SSH客户端中添加SSH的私钥，这样就可以使用SSH的方式了。
+
+#### C.在Github中添加SSH的公钥：
+![Sourcetree切换SSH](/image/image-2023-11-25-03.png)
+
+### 3.【Git-密钥生成-不使用Sourcetree生成SSH密钥】
+
+* A.如果在Sourcetree选项选择Putty的方式，那么就需要使用Puttygen来生成密钥，但是这样生成出来的密钥测试后出现私有密钥跟git上配置的公钥不匹配，所以需要使用Git Bash来生成密钥。
+![Sourcetree切换SSH](/image/image-2023-11-25-04.png)
+* B.使用Git Bash生成密钥：
+* 1.首先打开Git Bash，输入命令：
+
+```
+  ssh-keygen -t rsa -C "your_email@example.com"
+
+```
+
+* t 选项后跟密钥类型（如 rsa, dsa, ecdsa, ed25519）。
+
+* C 选项后跟一个注释，通常是您的电子邮件地址。
+
+* 然后一路回车，直到生成密钥，密钥生成在C:\Users\用户名\Administrator\.ssh\id_rsa.pub这两个文件:
+* \.ssh是私有；\id_rsa..pub是公钥,这就完成Git的SSH密钥生成。
+
+### 4.【Git-配置密钥-不使用Sourcetree生成SSH密钥】
+
+* git上配置SSL密钥，打开你的Git bash，输入命令：
+
+A. 打开 Git Bash
+首先，C:\Users\Administrator\.ssh下，打开 Git Bash。
+
+B. 启动 ssh-agent
+在 Git Bash 中，首先确保 ssh-agent 正在运行。可以使用以下命令启动 ssh-agent：
+
+```
+eval $(ssh-agent -s)
+```
+
+这个命令会启动 ssh-agent 并设置相关的环境变量，使得 ssh-add 能够找到并与之通信，这是手动启动的方式，自动启动的方式需要在你的电脑上C:\Users\Administrator下生成一个.profile文件。然后在.profile文件中添加：
+
+```
+env=~/.ssh/agent.env
+
+agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
+
+agent_start () {
+    (umask 077; ssh-agent >| "$env")
+    . "$env" >| /dev/null ; }
+
+agent_load_env
+
+# agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2= agent not running
+agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+
+if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+    agent_start
+    ssh-add
+elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
+    ssh-add
+fi
+
+unset env
+```
+
+这样就可以自动启动ssh-agent了。
+
+C. 使用 ssh-add 添加 SSH 密钥
+接下来，使用 ssh-add 命令来添加您的 SSH 私钥。如果您的私钥位于默认位置（~/.ssh/id_rsa），只需简单地运行：
+
+```
+ssh-add
+```
+
+如果您的私钥保存在其他位置，需要指定私钥文件的路径，例如：
+
+```
+ssh-add 空格首字母+Tab键，找到你的私钥文件
+```
+
+### 5. 补充说明:如果使用Git Desktop 的话你的.ssh下需要存放好id_rsa跟id_rsa.pub这两个文件，然后Git Desktop就能自动识别到你的密钥了，这样就可以使用SSH的方式了。
+![Sourcetree切换SSH](/image/image-2023-11-25-05.png)
+
+### 6.官方文档：
+
+* [Git-SSH-密钥生成](https://docs.github.com/cn/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+* [Git-443问题解决方案-博客](https://jauved.github.io/posts/Git%E6%8B%89%E5%8F%96%E5%A4%B1%E8%B4%A5443%E6%9C%80%E7%BB%88%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/)

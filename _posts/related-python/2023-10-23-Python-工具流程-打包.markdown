@@ -1,0 +1,219 @@
+---
+layout: post
+title: "Python-工具流程-打包"
+categories: [python 系列]
+tags: Python Build PyInstaller
+---
+
+<div style="text-align:center;font-size: 24px;">
+工具编写架构跟PyInstaller打包流程
+</div>
+
+## 一。工具制作框架：
+
+### 1.工具项目结构
+
+- 1.安装 Python 解释器。
+- 2.创建一个新的虚拟环境以隔离项目依赖。
+- 3.激活虚拟环境。
+- 4.使用 pip 安装所需的包。
+- 5.编写 Python 代码，引用这些包。
+
+```
+my_project/
+│
+├── .venv/                   # 虚拟环境目录，包含你的项目依赖
+│
+├── my_package/              # 你的包目录
+│   ├── __init__.py          # 告诉 Python 这个目录是一个 Python 包
+│   ├── module1.py           # 包中的一个模块
+│   └── module2.py           # 包中的另一个模块
+│
+├── tests/                   # 测试代码目录
+│   ├── __init__.py
+│   ├── test_module1.py
+│   └── test_module2.py
+│
+├── scripts/                 # 存放脚本的目录
+│   └── script.py
+│
+├── requirements.txt         # 项目依赖列表文件
+├── setup.py                 # 安装、分发、部署你的包的脚本
+└── main.py                  # 项目的主入口点
+```
+
+### 2.工具编写架构：
+
+```
+# module1.py
+
+# 定义一个函数
+def my_function():
+    """一个简单的函数，打印一条消息。"""
+    print("Hello from module1!")
+
+# 定义一个类
+class MyClass:
+    """一个简单的类，包含一个方法。"""
+    
+    # 类的初始化方法
+    def __init__(self, name):
+        self.name = name  # 实例变量
+
+    # 类的实例方法
+    def greet(self):
+        """打印带有名字的问候语。"""
+        print(f"Hello, {self.name}!")
+
+# 模块的执行入口
+if __name__ == "__main__":
+    # 这部分代码只有在直接运行这个模块时才会执行。
+    my_function()  # 调用函数
+    my_obj = MyClass(name="Alice")  # 创建类的实例
+    my_obj.greet()  # 调用类的方法
+```
+
+### 3.工具测试模块【开发环节】-暂时记录：
+
+#### A.[单元测试](https://www.youtube.com/watch?v=FPVumal7LOU&list=PLvQDgAXJ4ADNJHfTdFCIVfWb6VbPUBL9s)（Unit Tests）：测试单个组件（如函数或类）的功能。
+
+- 目的：验证单个组件（如函数、方法或类）的行为是否正确。
+- 特点：通常由开发者编写，针对软件的最小可测试部分，快速执行，易于维护。
+- 作用：确保单个组件按预期工作，有助于捕捉早期的逻辑错误和边界条件问题，便于代码重构，因为它们提供了一个安全网来防止对现有功能的意外更改。
+
+#### B.集成测试（Integration Tests）：测试多个组件协同工作的功能。
+#### C.系统测试（System Tests）：测试整个程序的功能。
+#### D.验收测试（Acceptance Tests）：确保软件满足用户需求。测试结构，让我知道测试结构用来干嘛
+#### 测试结构的作用:
+
+- 提高代码质量：通过不同层面的测试，可以确保代码的质量和稳定性。
+- 减少错误：及时发现和修复错误，避免在软件开发的后期或发布后出现问题。
+- 增强信心：对代码进行全面测试可以增加对软件正确性的信心。
+- 促进维护和扩展：良好的测试结构使得维护现有代码和添加新功能变得更容易。
+
+### 4.多脚本文件合并串联【多功能组件】
+
+- 假设你有两个 Python 脚本 tool1.py 和 tool2.py，你可以创建一个新的脚本 main.py，在这个脚本中导入并使用 tool1 和 tool2 中的功能。然后，你可以使用 --onefile 选项对 main.py 进行打包
+
+```
+# main.py
+
+import tool1
+import tool2
+
+def main():
+    # 使用 tool1 和 tool2 中的功能
+    tool1.some_function()
+    tool2.another_function()
+
+if __name__ == "__main__":
+    main()
+```
+
+## 二.使用 PyInstaller 手动打包-[指南](https://packaging.python.org/en/latest/) ：
+
+### 1.安装 PyInstaller  
+
+```
+pip install pyinstaller
+```
+
+### 2.执行 PyInstaller：
+
+- 确保你的 Python 脚本可以在你的环境中正常运行，在命令行中，导航到包含你的 Python 脚本的目录。运行以下命令来创建可执行文件：
+
+```
+pyinstaller 你的工具名.py // 
+```
+
+### 3.额外附加文件 PyInstaller：
+
+- PyInstaller 将分析你的脚本，找出所有必要的依赖，并创建一个 dist 目录，其中包含了可执行文件。
+
+- 添加额外的文件（如果需要）
+
+- 如果你的程序依赖于非代码文件（如图像、数据文件等），你需要告诉 PyInstaller 包含这些文件。这可以通过编辑 PyInstaller 创建的 .spec 文件来完成。
+
+- 在 .spec 文件中，你可以使用 datas 列表来添加额外的文件或目录。例如：
+
+```
+a = Analysis(['your_script.py'],
+             ...
+             datas=[('path/to/data/files', 'data')],
+             ...)
+```
+
+- 这里，('path/to/data/files', 'data') 表示将 path/to/data/files 目录下的所有内容复制到可执行文件的 data 目录中。
+修改 .spec 文件后，重新运行 PyInstaller，使用 .spec 文件作为输入：
+
+```
+pyinstaller your_script.spec
+```
+
+## 三.使用 PyInstaller 自动打包：
+
+```
+import subprocess //执行系统命令
+import os //文件路径操作和目录列表获取
+
+def package_scripts_in_directory(directory, additional_args=None):
+    """
+    # 打包指定目录下的所有 Python 脚本。
+    # param directory: 包含 Python 脚本的目录。
+    # param additional_args: 传递给 PyInstaller 的额外参数列表。
+
+    if additional_args is None:
+        additional_args = []
+
+    # 获取目录中的所有 Python 文件
+    python_files = [f for f in os.listdir(directory) if f.endswith('.py')]
+
+    for script in python_files:
+        script_path = os.path.join(directory, script)
+        print(f"正在打包脚本：{script_path}")
+
+        # 构建 PyInstaller 命令
+        command = ['pyinstaller', script_path] + additional_args
+
+        # 执行命令
+        try:
+            subprocess.run(command, check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"打包 {script_path} 时出错：{e}")
+
+if __name__ == "__main__":
+    package_scripts_in_directory('.', additional_args=['--onefile'])
+
+```
+
+- 定义函数 package_scripts_in_directory:
+
+- 这个函数是脚本的核心，用于打包指定目录下的所有 Python 脚本。
+
+- 参数：directory: 指定包含 Python 脚本的目录；additional_args: 一个列表，包含传递给 PyInstaller 的额外参数。
+
+- 检查 additional_args:如果调用函数时没有提供 additional_args，则将其设置为一个空列表。
+
+- 获取 Python 文件列表:使用 os.listdir(directory) 获取指定目录下的所有文件和目录。
+- 列表推导式 [f for f in os.listdir(directory) if f.endswith('.py')] 用于筛选出所有以 .py 结尾的文件（即 Python - 脚本）。
+
+- 遍历并打包每个 Python 脚本:对于目录中的每个 Python 文件，构建一个 PyInstaller 命令来打包该文件。 os.path.join(directory, script) 用于生成完整的文件路径。['pyinstaller', script_path] + additional_args 构建了完整的 PyInstaller 命令。
+  
+- 执行 PyInstaller 命令:使用 subprocess.run(command, check=True) 执行命令。如果命令执行失败，subprocess.CalledProcessError 将被抛出。
+  
+- 异常处理:如果在执行 PyInstaller 命令时出现错误，将捕获异常并打印错误信息。
+  
+- 脚本的入口点:if __name__ == "__main__": 确保当脚本被直接运行时，下面的代码块将被执行。 package_scripts_in_directory('.', additional_args=['--onefile']) 调用函数，打包当前目录下的所有 Python 脚本，并- 传递 --onefile 作为额外参数，这将创建单文件可执行文件。
+
+## 四。资料：
+### 教程：
+
+- [Python-基础教程](https://www.youtube.com/watch?v=1PC3etgLwVc&list=PLXO45tsB95cIRP5gCi8AlYwQ1uFO2aQBw)
+- [Python-基础教程-文章](https://realpython.com/search?kind=article&kind=course&order=newest)
+- [Python-基础教程-官方](https://docs.python.org/3/tutorial/index.html)
+
+### 官方：
+
+- [Python-官方文档](https://docs.python.org/3/)
+- [Python-各种库和工具](https://pypi.org/)
+- [Python-PEP8-编码风格指南](https://peps.python.org/pep-0008/)- "Python Enhancement Proposal #8"（Python 增强提案 8）它是 Python 官方推荐的编码风格指南，旨在提高 Python 代码的可读性和一致性。遵循 PEP 8 的指导原则可以帮助开发者编写风格一致、易于理解和维护的代码。

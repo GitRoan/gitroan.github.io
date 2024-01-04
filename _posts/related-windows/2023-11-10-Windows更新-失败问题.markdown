@@ -1,0 +1,60 @@
+---
+layout: post
+title: "Windows-更新失败问题"
+categories: [Widnows 系列]
+tags: Windows Upatate
+---
+
+<div style="text-align:center;font-size: 24px;">
+解决流程
+</div>
+
+## 一。问题描述：
+
+### 0x80070643 错误通常发生在 Windows 操作系统中，它是一个广泛的错误代码，通常与 Windows 更新或安装软件有关。这个错误通常会伴随着“严重错误”或“安装失败”的消息。
+![Image-工程](/image/image-20231110-01.png)
+
+- 出现这个问题是windows更新出现问题，导致更新失败！
+
+## 二。检查步骤：
+
+### 1.【防火墙】检查下是否正常打开
+
+- 0x80070643 错误代码是由于设备防火墙未正常开启所导致的。 麻烦您按照下方的方案进行操作，看一下能否解决这一问题： 启动开始菜单，输入“检查防火墙状态”，回车启动。 点击左侧的“启用或关闭Windows Defender 防火墙” 选项，确认一下所有的防火墙功能是否全部处于开启的状态。
+
+### 2.【打开服务】Windows Update 改成自动，先停止后启动。
+
+```
+</>YAML
+//Windows10电脑上用命令win + R 输入命令行打开服务
+services.msc
+
+//关闭服务器
+net stop wuauserv
+net stop bits
+net stop cryptSvc
+
+//重命名文件夹
+ren %systemroot%\System32\Catroot2 Catroot.old
+ren %systemroot%\SoftwareDistribution SoftwareDistribution.old
+
+//开启服务器
+net start wuauserv
+net start bits
+net start cryptSvc
+</> div>
+
+```
+
+- ！！ 请确保在执行这些步骤之前已经保存了所有工作，并且准备好重启计算机，因为这些操作可能会导致系统需要重启。
+- 通过以上步骤，可以解决大部分的问题，如果还是不行，可以尝试以下步骤：- [windows 重新检查你的windows10更新需要的组件](https://www.microsoft.com/en-us/software-download/windows10)下载wendows更新组件工具去把电脑的版本组件更新下。
+
+## 三。参考资源：
+
+### 【工具链接，视频链接】
+
+- [微软补丁官网](https://www.catalog.update.microsoft.com/Home.aspx)
+
+- [windows 重新检查你的windows10更新需要的组件](https://www.microsoft.com/en-us/software-download/windows10)
+
+- [windows 0x80070643问题视频教程](https://www.youtube.com/watch?v=eoUbstHVSEw)
