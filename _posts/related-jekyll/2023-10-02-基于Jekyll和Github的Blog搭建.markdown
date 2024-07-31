@@ -29,8 +29,9 @@ tags: Ruby Jekyll blog
 
 ### 2. 【“Ruby”安装流程】
 
-- 下载和安装[**Ruby+Devkit**](https://rubyinstaller.org/downloads/);(**Ruby 的安装路径中不能有空格，所以不建议安装在`Program Files`中，笔者是直接安装在 D 盘根目录下**)
-
+- 下载和安装[**Ruby+Devkit**](https://rubyinstaller.org/downloads/);(**Ruby 的安装路径中不能有空格，所以不建议安装在`Program Files`中，笔者是直接安装在 C 盘根目录下`Ruby32-x64`默认安装就好了**)
+  
+![image-20230910172328400](/image/image-2024-07-31-01.png)
 ![image-20230910172224235](/image/image-202310010001.png)
 安装完后，进入终端查看"ruby"现在的版本号
 ![image-20230910172224235](/image/image-202310010002.png)
@@ -38,11 +39,11 @@ tags: Ruby Jekyll blog
 ### 3.【"Ridk"环境安装】
 
 - **之后如果需要手动输入命令行请在 Ruby 的安装目录中进行，即在`Ruby32-x64`目录中，通过在路径处输入`cmd`来启动命令行.**
-
+  
 ![image-20230910172224235](/image/image-20230910172224235.png)
 ![image-20230910172328400](/image/image-20230910172328400.png)
 
-- 以**管理员权限**运行安装完之后，会自动执行命令行 (如果此时错过了，可以之后在命令行中手动执行)`ridk install`, 此时默认选择安装`[1,3]`项，回车即可;
+- 以**管理员权限**运行安装完之后，会自动执行命令行 (如果此时错过了，可以之后在命令行中手动执行)`ridk install`, 此时默认选择安装`[1,3]`项，回车即可等到出现`Which components shall be installed? If unsure press ENTER []`就退出;
   ![image-20220819100333102](/image/image-20220819100333102.png)
 
 ### 4.【“Jekyll”“Bundle”环境安装】
@@ -85,7 +86,7 @@ tags: Ruby Jekyll blog
 
 - 通过 Git 拉取创建的工程
 
-- 在工程根目录下执行命令行`bundle`, 此时会下载依赖库 (梯子可能有反作用)(**这个步骤中的命令行都在工程的根目录下执行**)
+- 一定要在工程根目录下执行命令行`bundle`不要在Ruby的路径下, 此时会下载依赖库 (梯子可能有反作用)(**这个步骤中的命令行都在工程的根目录下执行**)
 
 - 打开根目录下的`_config.yml`进行配置，笔者修改的项目如下
 
@@ -255,3 +256,19 @@ Error: Process completed with exit code 1.
 
         # 直接运行的脚本，则连接“jekyll”服务器
         bundle exec jekyll s
+        # 如果安装的版本高的话需要操作删除
+        gem uninstall jekyll
+        gem install jekyll -v 4.3.2
+        # 这样去安装指定版本
+- ### 遇到 Bundel安装出现问题的时候
+
+        # C:\Users\Administrator路径下找到.gitconfig
+        然后加入：
+              [http "https://github.com"]
+              proxy = socks5://代理+端口号
+              [https "https://github.com"]
+              proxy = socks5://代理+端口号
+              [http "https://github.com"]
+              proxy = <http://代理+端口号>
+              [https "https://github.com"]
+              proxy = <https://代理+端口号>
