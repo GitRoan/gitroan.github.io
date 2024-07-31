@@ -5,8 +5,6 @@ categories: [Jekyll 系列]
 tags: Ruby Jekyll blog
 ---
 
-# Ruby + Jekyll + Github 搭建 Blog
-
 ## 静态博客【优势】：
 
 ### 1.【速度和性能】
