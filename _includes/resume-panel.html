@@ -1,17 +1,13 @@
-<!-- The resume panel -->
-{% assign MAX = 10 %} {% assign resume_posts = site.posts | where: "resume",
-true | sort: 'date' | reverse %} {% if resume_posts.size > 0 %}
+{% assign MAX = 10 %}
+{% assign resume_posts = site.posts | where: "resume", true | sort: 'date' | reverse %}
+{% if resume_posts.size > 0 %}
 <section>
   <h2 class="panel-heading">
-    个人简历
-    <!-- 这里添加您要显示的文本 -->
+    记录想法
   </h2>
   <div class="d-flex flex-wrap mt-3 mb-1 me-3">
     {% for post in resume_posts limit: MAX %}
-    <a
-      class="post-resume btn btn-outline-primary"
-      href="{{ post.url | relative_url }}"
-    >
+    <a class="post-resume btn btn-outline-primary" href="{{ post.url | relative_url }}">
       {{ post.title }}
     </a>
     {% endfor %}
@@ -20,9 +16,8 @@ true | sort: 'date' | reverse %} {% if resume_posts.size > 0 %}
 {% else %}
 <section>
   <h2 class="panel-heading">
-    个人简历
-    <!-- 这里添加您要显示的文本 -->
+    记录想法
   </h2>
-  <p>暂无简历。</p>
+  <p>暂无记录。</p>
 </section>
 {% endif %}

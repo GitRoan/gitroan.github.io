@@ -1,0 +1,23 @@
+{% assign MAX = 10 %}
+{% assign about_posts = site.posts | where: "about", true | sort: 'date' | reverse %}
+{% if about_posts.size > 0 %}
+<section>
+    <h2 class="panel-heading">
+        关于我们
+    </h2>
+    <div class="d-flex flex-wrap mt-3 mb-1 me-3">
+        {% for post in about_posts limit: MAX %}
+        <a class="post-about btn btn-outline-primary" href="{{ post.url | relative_url }}">
+            {{ post.title }}
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% else %}
+<section>
+    <h2 class="panel-heading">
+        关于我们
+    </h2>
+    <p>暂无记录。</p>
+</section>
+{% endif %}

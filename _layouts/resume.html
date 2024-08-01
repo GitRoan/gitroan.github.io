@@ -8,6 +8,7 @@ layout: default
   .resume {
     text-align: center;
   }
+
   .resume-posts .list-group-item {
     display: flex;
     justify-content: center;
@@ -24,8 +25,7 @@ layout: default
 
   <!-- List of Resume Posts -->
   <div class="resume-posts">
-    {% assign resume_posts = site.posts | where: "resume", true %} {% if
-    resume_posts.size > 0 %}
+    {% assign resume_posts = site.posts | where: "resume", true %} {% if resume_posts.size > 0 %}
     <ul class="list-group">
       {% for post in resume_posts %}
       <li class="list-group-item">
@@ -37,7 +37,7 @@ layout: default
       {% endfor %}
     </ul>
     {% else %}
-    <p>暂无简历。</p>
+    <p>暂无记录。</p>
     {% endif %}
   </div>
 </div>
